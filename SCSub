@@ -1,0 +1,18 @@
+# SCsub
+
+Import('env')
+import os
+
+sources=[
+    "discord_manager.cpp",
+    "register_types.cpp",
+    "discord_activity_manager.cpp",
+    "discord_activity_state.cpp"
+]
+
+for file in os.listdir("discord-files"):
+    if file.endswith(".cpp"):
+        sources.append(os.path.join("discord-files", file));
+env.add_source_files(env.modules_sources, sources)
+
+env.Append(CPPPATH=[".", "discord-files", "lib/x86", "lib/x86_64"])
