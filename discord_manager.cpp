@@ -103,29 +103,30 @@ Error DiscordManager::initialize(int64_t client_id, bool require_discord, Discor
             activity_manager = memnew(DiscordActivityManager);
             activity_manager->core = core;
             activity_manager->initialized = true;
-        }
 
-        discord::LogLevel d_log_level = discord::LogLevel::Debug;
-        switch (log_level) {
-            case DiscordManager::INFO: {
-                d_log_level = discord::LogLevel::Info;
-            }
-            case DiscordManager::WARNING: {
-                d_log_level = discord::LogLevel::Warn;
-            }
-            case DiscordManager::ERROR: {
-                d_log_level = discord::LogLevel::Error;
-            }
-            case DiscordManager::DEBUG: {
-                d_log_level = discord::LogLevel::Debug;
-            }
-        }
+//            discord::LogLevel d_log_level = discord::LogLevel::Debug;
+//            switch (log_level) {
+//                case DiscordManager::INFO: {
+//                    d_log_level = discord::LogLevel::Info;
+//                }
+//                case DiscordManager::WARNING: {
+//                    d_log_level = discord::LogLevel::Warn;
+//                }
+//                case DiscordManager::ERROR: {
+//                    d_log_level = discord::LogLevel::Error;
+//                }
+//                case DiscordManager::DEBUG: {
+//                    d_log_level = discord::LogLevel::Debug;
+//                }
+//            }
+//
+//            core->SetLogHook(
+//                    d_log_level, [](discord::LogLevel level, const char *message) {
+//                        print_line("LOG");
+//                        print_line(vformat("%s", message));
+//                    });
 
-        core->SetLogHook(
-                d_log_level, [](discord::LogLevel level, const char *message) {
-                    print_line("LOG");
-                    print_line(vformat("%s", message));
-                });
+        }
         return status;
     }
     else {
@@ -145,7 +146,6 @@ void DiscordManager::_notification(int p_what) {
             if(init_on_ready) {
                 #ifdef TOOLS_ENABLED
                 if (Engine::get_singleton()->is_editor_hint()) {
-                    print_line("IN EDITOR");
                     return;
                 }
                 #endif
@@ -159,7 +159,6 @@ void DiscordManager::_notification(int p_what) {
         case NOTIFICATION_INTERNAL_PROCESS: {
             #ifdef TOOLS_ENABLED
                         if (Engine::get_singleton()->is_editor_hint()) {
-                                print_line("IN EDITOR");
                                 return;
                             }
             #endif
@@ -168,7 +167,6 @@ void DiscordManager::_notification(int p_what) {
         case NOTIFICATION_PREDELETE: {
             #ifdef TOOLS_ENABLED
                         if (Engine::get_singleton()->is_editor_hint()) {
-                                print_line("IN EDITOR");
                                 return;
                             }
             #endif
