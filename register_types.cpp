@@ -7,11 +7,13 @@
 #include "core/object/class_db.h"
 #include "discord_manager.h"
 
-void register_game_sdk_gd4_types() {
-    ClassDB::register_class<DiscordActivityState>();
-    ClassDB::register_class<DiscordActivityManager>();
-    ClassDB::register_class<DiscordManager>();
+void initialize_game_sdk_gd4_module(ModuleInitializationLevel p_level) {
+	if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
+		GDREGISTER_CLASS(DiscordManager);
+		GDREGISTER_CLASS(DiscordActivityState);
+		GDREGISTER_CLASS(DiscordActivityManager);
+	}
 }
 
-void unregister_game_sdk_gd4_types() {
+void uninitialize_game_sdk_gd4_module(ModuleInitializationLevel p_level) {
 }

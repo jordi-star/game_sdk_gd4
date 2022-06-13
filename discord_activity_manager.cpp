@@ -11,7 +11,7 @@ Ref<DiscordActivityState> DiscordActivityManager::get_current_activity() {
 
 void DiscordActivityManager::set_activity(Ref<DiscordActivityState> activity) {
     current_activity = activity;
-    current_activity->connect("property_changed", callable_mp(this, &DiscordActivityManager::update_activity));
+    //current_activity->connect("property_changed", callable_mp(this, &DiscordActivityManager::update_activity));
     update_activity();
 }
 

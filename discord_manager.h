@@ -5,13 +5,13 @@
 #ifndef GODOT_DISCORDMANAGER_H
 #define GODOT_DISCORDMANAGER_H
 
-#include "scene/2d/node_2d.h"
+#include "scene/main/node.h"
 #include "discord-files/discord.h"
 #include "discord_activity_manager.h"
 
 
-class DiscordManager : public Node2D {
-    GDCLASS(DiscordManager, Node2D);
+class DiscordManager : public Node {
+    GDCLASS(DiscordManager, Node);
     String client_id = "0";
     bool require_discord = false;
     bool init_on_ready = false;

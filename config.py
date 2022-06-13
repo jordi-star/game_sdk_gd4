@@ -13,3 +13,8 @@ def configure(env):
             else: # 64 bit
                 env.Append(LINKFLAGS=["discord_game_sdk.dll.lib"])
                 env.Append(LIBPATH=["#modules/game_sdk_gd4/lib/x86_64/"])
+    else:
+        env.Append(
+            LIBPATH=["#modules/game_sdk_gd4/lib/x86_64"])
+        env.Append(LIBPATH=["#modules/game_sdk_gd4/lib/x86_64/"])
+        env.Append(RPATH=["\$\ORIGIN"])
