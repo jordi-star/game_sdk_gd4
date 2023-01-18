@@ -79,18 +79,18 @@ void DiscordManager::_bind_methods() {
     ADD_SIGNAL(MethodInfo("game_sdk_initialized"));
 }
 
-Error DiscordManager::initialize(int64_t client_id, bool require_discord, DiscordLogLevel log_level) {
+Error DiscordManager::initialize(int64_t p_client_id, bool p_require_discord, DiscordLogLevel p_log_level) {
     if(!initialized) {
         EDiscordCreateFlags create_flag;
 
-        if (require_discord) {
+        if (p_require_discord) {
             create_flag = DiscordCreateFlags_Default;
         } else {
             create_flag = DiscordCreateFlags_NoRequireDiscord;
         }
 
         Error status = Error::OK;
-        discord::Result result = discord::Core::Create(client_id, create_flag, &core);
+        discord::Result result = discord::Core::Create(p_client_id, create_flag, &core);
         if (result != discord::Result::Ok) {
             status = Error::ERR_CANT_CREATE;
             print_error(vformat("An error occurred while attempting to initialize the Discord Game SDK. Error code: %s",
@@ -104,27 +104,25 @@ Error DiscordManager::initialize(int64_t client_id, bool require_discord, Discor
             activity_manager->core = core;
             activity_manager->initialized = true;
 
-//            discord::LogLevel d_log_level = discord::LogLevel::Debug;
-//            switch (log_level) {
-//                case DiscordManager::INFO: {
-//                    d_log_level = discord::LogLevel::Info;
-//                }
-//                case DiscordManager::WARNING: {
-//                    d_log_level = discord::LogLevel::Warn;
-//                }
-//                case DiscordManager::ERROR: {
-//                    d_log_level = discord::LogLevel::Error;
-//                }
-//                case DiscordManager::DEBUG: {
-//                    d_log_level = discord::LogLevel::Debug;
-//                }
-//            }
-//
-//            core->SetLogHook(
-//                    d_log_level, [](discord::LogLevel level, const char *message) {
-//                        print_line("LOG");
-//                        print_line(vformat("%s", message));
-//                    });
+           discord::LogLevel d_log_level = discord::LogLevel::Debug;
+           switch (p_log_level) {
+               case DiscordManager::INFO: {
+                   d_log_level = discord::LogLevel::Info;
+               }
+               case DiscordManager::WARNING: {
+                   d_log_level = discord::LogLevel::Warn;
+               }
+               case DiscordManager::ERROR: {
+                   d_log_level = discord::LogLevel::Error;
+               }
+               case DiscordManager::DEBUG: {
+                   d_log_level = discord::LogLevel::Debug;
+               }
+           }
+
+           core->SetLogHook(d_log_level, [](discord::LogLevel level, const char *message) {
+                   print_line(vformat("Discord: %s", message));
+            });
 
         }
         return status;

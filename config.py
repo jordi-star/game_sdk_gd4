@@ -7,14 +7,14 @@ def configure(env):
     if env["platform"] == "windows":
         # Mostly VisualStudio
         if env["CC"] == "cl":
-            if env["bits"]=="32":
-                env.Append(LINKFLAGS=["discord_game_sdk.dll.lib"])
+            env.Append(LINKFLAGS=["discord_game_sdk.dll.lib"])
+            if env["arch"]=="x86":
                 env.Append(LIBPATH=["#modules/game_sdk_gd4/lib/x86/"])
             else: # 64 bit
-                env.Append(LINKFLAGS=["discord_game_sdk.dll.lib"])
                 env.Append(LIBPATH=["#modules/game_sdk_gd4/lib/x86_64/"])
-    else:
-        env.Append(
-            LIBPATH=["#modules/game_sdk_gd4/lib/x86_64"])
+    elif env["platform"] == "osx":
         env.Append(LIBPATH=["#modules/game_sdk_gd4/lib/x86_64/"])
         env.Append(RPATH=["\$\ORIGIN"])
+    elif env["platform"] == "linuxbsd":
+        env.Append(LIBPATH=["#modules/game_sdk_gd4/lib/x86_64/"])
+        env.Append(LIBS=['discord_game_sdk'])

@@ -6,6 +6,7 @@
 #define GODOT_DISCORDMANAGER_H
 
 #include "scene/main/node.h"
+#include <cstdint>
 #include "discord-files/discord.h"
 #include "discord_activity_manager.h"
 
